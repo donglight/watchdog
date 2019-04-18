@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Getter
 public final class URLStat implements Comparable<URLStat>, Serializable {
 
+    private static final long serialVersionUID = 1L;
     /**
      * detail id
      */
