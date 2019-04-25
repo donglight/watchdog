@@ -1,0 +1,6 @@
+org\donglight\watchdog\client\web\CommunicationProxy.class
+org\donglight\watchdog\client\web\listener\RegisterToRemoteApplicationListener.class
+org\donglight\watchdog\client\web\listener\RegisterToRemoteServletContextListener.class
+org\donglight\watchdog\client\web\HttpCommunicationProxy.class
+org\donglight\watchdog\client\web\filter\URLFilter.class
+org\donglight\watchdog\client\web\HttpCommunicationProxy$1.class

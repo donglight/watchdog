@@ -1,9 +1,15 @@
 package org.donglight.watchdog.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 /**
@@ -14,69 +20,80 @@ import java.util.List;
  * @since 1.0.0
  */
 @Getter
+@ToString
 public final class URLInfo implements Comparable<URLInfo>, Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** 唯一标识此Url的id */
+    /**
+     * 唯一标识此Url的id
+     */
     private final long id;
 
-    /** 记录该url的路径 (eg: /user/1) */
+    /**
+     * 记录该url的路径 (eg: /user/1)
+     */
     private final String url;
 
-    /** 该url被访问或请求的次数 */
-    private long requestTimes;
+    /**
+     * 该url被访问或请求的次数
+     */
+    @Setter
+    private AtomicLong requestTimes;
 
-    /** 该Url的最大并发数 */
-    private int maxConcurrency;
+    /**
+     * 该Url的最大并发数
+     */
+    @Setter
+    private AtomicInteger maxConcurrency;
 
-    /** 失败次数 */
-    private int failTimes;
+    /**
+     * 失败次数
+     */
+    @Setter
+    private AtomicInteger failTimes;
 
-    /** 成功率 */
+    /**
+     * 成功率
+     */
+    @Setter
     private double successRate;
 
-    /** 请求的HttpMethod */
+    /**
+     * 请求的HttpMethod
+     */
+    @Setter
     private final String httpMethod;
 
-    /** URL列表 */
-    private List<URLStat> urlStatList;
 
-    /** 请求方法常量 */
+    /**
+     * URL详情列表
+     */
+    @Setter
+    @JsonIgnore
+    private List<URLState> urlStatList = new ArrayList<>();
+
+    /**
+     * 请求方法常量
+     */
     public static final String HTTP_GET = "Get";
     public static final String HTTP_POST = "Post";
     public static final String HTTP_PUT = "Put";
     public static final String HTTP_DELETE = "Delete";
 
-
-    public void setRequestTimes(long requestTimes) {
-        this.requestTimes = requestTimes;
+    public URLInfo(){
+        id = 0;
+        httpMethod = HTTP_GET;
+        url = "";
     }
-
-    public void setMaxConcurrency(int maxConcurrency) {
-        this.maxConcurrency = maxConcurrency;
-    }
-
-    public void setFailTimes(int failTimes) {
-        this.failTimes = failTimes;
-    }
-
-    public void setSuccessRate(double successRate) {
-        this.successRate = successRate;
-    }
-
-    public void setUrlStatList(List<URLStat> urlStatList){
-        this.urlStatList = urlStatList;
-    }
-
 
     private URLInfo(URLInfo.Builder builder) {
         this.id = builder.id;
-        this.url = builder.url;
-        this.requestTimes = builder.requestTimes;
-        this.maxConcurrency = builder.maxConcurrency;
-        this.failTimes = builder.failTimes;
-        this.successRate = builder.successRate;
+        this.url = builder.url != null ? builder.url : "";
+        this.requestTimes = new AtomicLong(builder.requestTimes != null ? builder.requestTimes : 0L);
+        this.maxConcurrency = new AtomicInteger(builder.maxConcurrency != null ? builder.maxConcurrency : 0);
+        this.failTimes = new AtomicInteger(builder.failTimes != null ? builder.failTimes : 0);
+        this.successRate = builder.successRate != null ? builder.successRate : 0D;
         this.httpMethod = builder.httpMethod;
         this.urlStatList = builder.urlStatList;
     }
@@ -85,7 +102,7 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
         return new Builder(this);
     }
 
-    public URLInfo.Builder builder() {
+    public static URLInfo.Builder builder() {
         return new Builder();
     }
 
@@ -98,19 +115,19 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
         private Integer failTimes;
         private Double successRate;
         private String httpMethod;
-        private List<URLStat> urlStatList;
+        private List<URLState> urlStatList;
 
-        Builder(URLInfo source) {
+        public Builder(URLInfo source) {
             this.id = source.id;
             this.url = source.url;
-            this.requestTimes = source.requestTimes;
-            this.maxConcurrency = source.maxConcurrency;
-            this.failTimes = source.failTimes;
+            this.requestTimes = source.requestTimes.get();
+            this.maxConcurrency = source.maxConcurrency.get();
+            this.failTimes = source.failTimes.get();
             this.successRate = source.successRate;
             this.httpMethod = source.httpMethod;
         }
 
-        Builder() {
+        public Builder() {
 
         }
 
@@ -122,7 +139,9 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
             failTimes = null;
             successRate = null;
             httpMethod = null;
-            urlStatList = null;
+            if (urlStatList != null) {
+                urlStatList.clear();
+            }
             return this;
         }
 
@@ -169,7 +188,8 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
             this.httpMethod = httpMethod;
             return this;
         }
-        public Builder urlStatList(List<URLStat> urlStatList) {
+
+        public Builder urlStatList(List<URLState> urlStatList) {
             this.urlStatList = urlStatList;
             return this;
         }
@@ -191,11 +211,11 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
         if (!this.url.equals(o.url)) {
             return this.url.compareTo(o.url);
         }
-        if (this.requestTimes != o.requestTimes) {
-            return this.requestTimes > o.requestTimes ? 1 : -1;
+        if (!this.requestTimes.equals(o.requestTimes)) {
+            return this.requestTimes.get() > o.requestTimes.get() ? 1 : -1;
         }
-        if (this.failTimes != o.failTimes) {
-            return this.failTimes > o.failTimes ? 1 : -1;
+        if (!this.failTimes.equals(o.failTimes)) {
+            return this.failTimes.get() > o.failTimes.get() ? 1 : -1;
         }
         if (this.successRate != o.successRate) {
             return this.successRate > o.successRate ? 1 : -1;
@@ -216,9 +236,9 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
             URLInfo that = (URLInfo) o;
             return (this.id == that.id)
                     && (this.url.equals(that.url)
-                    && (this.requestTimes == that.requestTimes)
-                    && (this.maxConcurrency == that.maxConcurrency))
-                    && (this.failTimes == that.failTimes)
+                    && (this.requestTimes.equals(that.requestTimes))
+                    && (this.maxConcurrency.equals(that.maxConcurrency)))
+                    && (this.failTimes.equals(that.failTimes))
                     && (this.successRate == that.successRate)
                     && (this.httpMethod.equalsIgnoreCase(that.httpMethod));
         }
@@ -229,9 +249,9 @@ public final class URLInfo implements Comparable<URLInfo>, Serializable {
         int result = 17;
         result = 31 * result + (int) (id ^ (id >>> 32));
         result = 31 * result + (url == null ? 0 : url.hashCode());
-        result = 31 * result + (int) (requestTimes ^ (requestTimes >>> 32));
-        result = 31 * result + maxConcurrency;
-        result = 31 * result + failTimes;
+        result = 31 * result + (int) (requestTimes.get() ^ (requestTimes.get() >>> 32));
+        result = 31 * result + maxConcurrency.get();
+        result = 31 * result + failTimes.get();
         long sr = Double.doubleToLongBits(successRate);
         result = 31 * result + (int) (sr ^ (sr >>> 32));
         result = 31 * result + (httpMethod == null ? 0 : httpMethod.hashCode());

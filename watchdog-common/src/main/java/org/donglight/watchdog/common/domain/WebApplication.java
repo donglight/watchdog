@@ -1,9 +1,8 @@
 package org.donglight.watchdog.common.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,77 +13,52 @@ import java.util.List;
  * @date 2019/4/17
  * @since 1.0.0
  */
-@EqualsAndHashCode
-@ToString
-public final class WebApplication {
+@Data
+public final class WebApplication implements Serializable {
 
-    private final long appId;
+    private static final long serialVersionUID = 1L;
 
-    private final String name;
+    private String appId;
 
-    private boolean health;
+    private String name;
 
-    private boolean alive;
+    private boolean health = true;
+
+    private boolean alive = true;
+
+    private String clientIP = "";
+
+    private String clientPort = "";
+
+    private String token;
 
     private List<URLInfo> urlInfoList;
 
-    private String message;
+    /**
+     * 应用状态的提示信息
+     */
+    private String message = "";
 
+    /**
+     * 上一次更新时间
+     */
+    private long lastUpdateTimestamp;
 
-
-    public WebApplication(long appId, String name,List<URLInfo> urlInfoList) {
+    public WebApplication(String appId, String name, String clientIP, String clientPort, String token, List<URLInfo> urlInfoList) {
         this.appId = appId;
         this.name = name;
+        this.clientIP = clientIP;
+        this.clientPort = clientPort;
+        this.token = token;
         this.urlInfoList = urlInfoList;
     }
 
-    public long getAppId() {
-        return appId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean checkHealth(){
+    public boolean checkHealth() {
         return true;
     }
 
-    public boolean checkAlive(){
+    public boolean checkAlive() {
         return true;
-    }
-
-
-    public boolean isHealth() {
-        return health;
-    }
-
-    public void setHealth(boolean health) {
-        this.health = health;
-    }
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    public void setAlive(boolean alive) {
-        this.alive = alive;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<URLInfo> getUrlInfoList() {
-        return urlInfoList;
-    }
-
-    public void setUrlInfoList(List<URLInfo> urlInfoList) {
-        this.urlInfoList = urlInfoList;
     }
 
     public void addUrl(URLInfo urlInfo) {
