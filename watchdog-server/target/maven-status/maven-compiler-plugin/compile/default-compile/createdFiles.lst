@@ -1,11 +1,3 @@
-org\donglight\watchdog\server\web\controller\CommunicationController.class
 org\donglight\watchdog\server\exception\GlobalExceptionHandler.class
-org\donglight\watchdog\server\web\AsyncPooling.class
-org\donglight\watchdog\server\store\Repository.class
-org\donglight\watchdog\server\WatchdogServerConfiguration.class
-org\donglight\watchdog\server\web\WebApplicationManager.class
-org\donglight\watchdog\server\util\PollingState.class
-org\donglight\watchdog\server\web\controller\FrontendController.class
-org\donglight\watchdog\server\web\DefaultWebApplicationManager.class
 org\donglight\watchdog\server\timer\CheckApplicationStateTimer.class
 org\donglight\watchdog\server\WatchdogServerApplication.class

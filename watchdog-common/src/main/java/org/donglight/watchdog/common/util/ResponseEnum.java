@@ -77,9 +77,14 @@ public enum ResponseEnum {
     REGISTER_FAIL(1000,"registration was fail or have  already registered"),
 
     /**
-     * 没有这个ID对应的元素，比如appID,URLId
+     * 没有这个ID对应的元素，比如appName,URLId
      */
-    NOELEMENT(1001,"No element corresponding to this ID");
+    NOELEMENT(1001,"No element corresponding to this ID"),
+
+    /**
+     * 轮询超时,因为数据没有更新
+     */
+    NO_DATA_UPDATE(1002,"Data is up to date");
 
     private int code;
 

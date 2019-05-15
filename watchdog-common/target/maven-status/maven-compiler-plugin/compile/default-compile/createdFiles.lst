@@ -1,13 +1,4 @@
-org\donglight\watchdog\common\domain\URLState.class
-org\donglight\watchdog\common\util\HttpClientUtil.class
-org\donglight\watchdog\common\domain\URLState$1.class
-org\donglight\watchdog\common\dto\RegistrationDTO.class
-org\donglight\watchdog\common\util\CommomUtil.class
 org\donglight\watchdog\common\util\IDUtils.class
-org\donglight\watchdog\common\domain\URLInfo$Builder.class
-org\donglight\watchdog\common\domain\URLInfo.class
-org\donglight\watchdog\common\util\Response.class
-org\donglight\watchdog\common\domain\URLState$Builder.class
 org\donglight\watchdog\common\util\ResponseEnum.class
-org\donglight\watchdog\common\domain\URLInfo$1.class
-org\donglight\watchdog\common\domain\WebApplication.class
+org\donglight\watchdog\common\util\HttpClientUtil.class
+org\donglight\watchdog\common\util\Response.class
