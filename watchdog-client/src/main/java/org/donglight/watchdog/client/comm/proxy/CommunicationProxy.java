@@ -1,13 +1,11 @@
-package org.donglight.watchdog.client.web.proxy;
+package org.donglight.watchdog.client.comm.proxy;
 
 import org.donglight.watchdog.common.bean.Metrics;
 import org.donglight.watchdog.common.bean.URLInfo;
 import org.donglight.watchdog.common.bean.URLState;
 import org.donglight.watchdog.common.bean.WatchDogClientConfigBean;
 
-import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 与监控服务器通信的客户端代理(rmi/http...)

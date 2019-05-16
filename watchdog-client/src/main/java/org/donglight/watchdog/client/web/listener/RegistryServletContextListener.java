@@ -2,9 +2,9 @@ package org.donglight.watchdog.client.web.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.donglight.watchdog.client.web.proxy.CommunicationProxy;
-import org.donglight.watchdog.client.web.proxy.HttpCommunicationProxy;
-import org.donglight.watchdog.client.web.proxy.RmiCommunicationProxy;
+import org.donglight.watchdog.client.comm.proxy.CommunicationProxy;
+import org.donglight.watchdog.client.comm.proxy.HttpCommunicationProxy;
+import org.donglight.watchdog.client.comm.proxy.RmiCommunicationProxy;
 import org.donglight.watchdog.common.bean.URLInfo;
 import org.donglight.watchdog.common.bean.WatchDogClientConfigBean;
 import org.donglight.watchdog.common.util.IDUtils;

@@ -1,4 +1,4 @@
-package org.donglight.watchdog.client.web.proxy;
+package org.donglight.watchdog.client.comm.proxy;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

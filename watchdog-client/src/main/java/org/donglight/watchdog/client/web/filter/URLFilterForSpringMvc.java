@@ -1,8 +1,7 @@
 package org.donglight.watchdog.client.web.filter;
 
-import org.donglight.watchdog.client.web.proxy.CommunicationProxy;
+import org.donglight.watchdog.client.comm.proxy.CommunicationProxy;
 import org.donglight.watchdog.common.bean.URLInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.AntPathMatcher;
 

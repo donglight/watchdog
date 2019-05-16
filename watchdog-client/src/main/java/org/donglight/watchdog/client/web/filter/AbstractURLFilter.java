@@ -3,7 +3,7 @@ package org.donglight.watchdog.client.web.filter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.donglight.watchdog.client.web.listener.RegistryServletContextListener;
-import org.donglight.watchdog.client.web.proxy.CommunicationProxy;
+import org.donglight.watchdog.client.comm.proxy.CommunicationProxy;
 import org.donglight.watchdog.common.bean.URLInfo;
 import org.donglight.watchdog.common.bean.URLState;
 import org.donglight.watchdog.common.util.IDUtils;

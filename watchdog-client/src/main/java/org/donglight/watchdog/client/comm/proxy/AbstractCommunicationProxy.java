@@ -1,4 +1,4 @@
-package org.donglight.watchdog.client.web.proxy;
+package org.donglight.watchdog.client.comm.proxy;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
