@@ -80,9 +80,9 @@ public class CommunicationController extends AbstractWatchDogCommunicationServic
     @Override
     @PostMapping(value = "/{appName}/{instanceId}/metrics", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Response setMetrics(@PathVariable("appName") String appName,
-                               @PathVariable("instanceId") String instanceId,
-                               @RequestBody Metrics metrics) {
-        return super.setMetrics(appName, instanceId, metrics);
+    public Response saveMetrics(@PathVariable("appName") String appName,
+                                @PathVariable("instanceId") String instanceId,
+                                @RequestBody Metrics metrics) {
+        return super.saveMetrics(appName, instanceId, metrics);
     }
 }

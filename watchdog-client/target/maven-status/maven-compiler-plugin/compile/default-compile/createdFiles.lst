@@ -1,12 +1,5 @@
 org\donglight\watchdog\client\web\listener\RegistryServletContextListener.class
-org\donglight\watchdog\client\web\proxy\AbstractCommunicationProxy.class
 org\donglight\watchdog\client\web\filter\URLFilterForServlet.class
-org\donglight\watchdog\client\web\proxy\RmiCommunicationProxy.class
-org\donglight\watchdog\client\web\proxy\CommunicationProxy.class
 org\donglight\watchdog\client\web\MetricsCollector.class
-org\donglight\watchdog\client\web\proxy\HttpCommunicationProxy.class
 org\donglight\watchdog\client\web\listener\RegistryApplicationListener.class
-org\donglight\watchdog\client\web\proxy\AbstractCommunicationProxy$CollectMetricsTimerTask.class
 org\donglight\watchdog\client\web\filter\URLFilterForSpringMvc.class
-org\donglight\watchdog\client\web\proxy\AbstractCommunicationProxy$RenewTimerTask.class
-org\donglight\watchdog\client\web\proxy\HttpCommunicationProxy$1.class

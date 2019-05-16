@@ -136,7 +136,7 @@ public class RmiCommunicationProxy extends AbstractCommunicationProxy {
     public boolean pushMetrics(Metrics metrics) {
         if (retryTime > 0) {
             try {
-                Response response = watchDogRMIService.setMetrics(appName, instanceInfo.getInstanceId(), metrics);
+                Response response = watchDogRMIService.saveMetrics(appName, instanceInfo.getInstanceId(), metrics);
                 if ("ok".equals(response.getData())) {
                     return true;
                 } else {

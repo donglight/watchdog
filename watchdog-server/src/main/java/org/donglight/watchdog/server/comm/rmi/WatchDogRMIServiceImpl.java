@@ -74,8 +74,8 @@ public class WatchDogRMIServiceImpl extends AbstractWatchDogCommunicationService
 
 
     @Override
-    public Response setMetrics(String appName, String instanceId, Metrics metrics) {
-        return super.setMetrics(appName, instanceId, metrics);
+    public Response saveMetrics(String appName, String instanceId, Metrics metrics) {
+        return super.saveMetrics(appName, instanceId, metrics);
     }
 
 }

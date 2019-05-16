@@ -149,4 +149,8 @@ public abstract class AbstractCommunicationProxy implements CommunicationProxy {
     public WatchDogClientConfigBean getWatchDogClientConfigBean() {
         return watchDogClientConfigBean;
     }
+
+    public void setWatchDogClientConfigBean(WatchDogClientConfigBean watchDogClientConfigBean) {
+        this.watchDogClientConfigBean = watchDogClientConfigBean;
+    }
 }

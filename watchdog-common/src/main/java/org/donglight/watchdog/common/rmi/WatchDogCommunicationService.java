@@ -81,5 +81,5 @@ public interface WatchDogCommunicationService extends Remote {
      * @return Response
      * @throws RemoteException RemoteException
      */
-    Response setMetrics(String appName, String instanceId, Metrics metrics) throws RemoteException;
+    Response saveMetrics(String appName, String instanceId, Metrics metrics) throws RemoteException;
 }

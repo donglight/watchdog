@@ -135,10 +135,10 @@ public abstract class AbstractWatchDogCommunicationService implements WatchDogCo
 
 
     @Override
-    public Response setMetrics(String appName,
-                               String instanceId,
-                               Metrics metrics) {
-        webApplicationManager.getInstance(appName, instanceId).setMetrics(metrics);
+    public Response saveMetrics(String appName,
+                                String instanceId,
+                                Metrics metrics) {
+        webApplicationManager.saveMetrics(appName, instanceId, metrics);
         log.debug("successful set metrics into instance '{}'", instanceId);
         return Response.ok("successful receive metrics", "ok");
     }

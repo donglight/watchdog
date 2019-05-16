@@ -2,6 +2,7 @@ package org.donglight.watchdog.server.comm;
 
 
 import org.donglight.watchdog.common.bean.InstanceInfo;
+import org.donglight.watchdog.common.bean.Metrics;
 import org.donglight.watchdog.common.bean.WatchDogClientConfigBean;
 import org.donglight.watchdog.common.bean.WebApplication;
 import org.donglight.watchdog.server.config.WatchDogServerConfigBean;
@@ -90,4 +91,14 @@ public interface WebApplicationManager {
      * @return WatchDogServerConfigBean
      */
     WatchDogServerConfigBean getServerConfig();
+
+    /**
+     * 保存指标信息
+     *
+     * @return WatchDogServerConfigBean
+     * @param appName
+     * @param instanceId
+     * @param metrics
+     */
+    void saveMetrics(String appName, String instanceId, Metrics metrics);
 }

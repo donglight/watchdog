@@ -2,10 +2,7 @@ package org.donglight.watchdog.server.comm;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.donglight.watchdog.common.bean.InstanceInfo;
-import org.donglight.watchdog.common.bean.LeaseInfo;
-import org.donglight.watchdog.common.bean.WatchDogClientConfigBean;
-import org.donglight.watchdog.common.bean.WebApplication;
+import org.donglight.watchdog.common.bean.*;
 import org.donglight.watchdog.server.comm.web.PollingState;
 import org.donglight.watchdog.server.config.WatchDogServerConfigBean;
 import org.donglight.watchdog.server.persistence.WatchdogDao;
@@ -186,6 +183,14 @@ public class DefaultWebApplicationManager implements WebApplicationManager {
     @Override
     public WatchDogServerConfigBean getServerConfig() {
         return watchDogServerConfigBean;
+    }
+
+    @Override
+    public void saveMetrics(String appName, String instanceId, Metrics metrics) {
+        InstanceInfo instance = getInstance(appName, instanceId);
+        if (instance != null) {
+            instance.setMetrics(metrics);
+        }
     }
 
 }
