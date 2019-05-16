@@ -77,7 +77,6 @@ public abstract class AbstractURLFilter implements Filter {
             requestURI = requestURI.replace("/" + contextPath, "");
         }
         if ((position = binaryMatcherPath(watchingURLInfos, requestURI)) != -1) {
-            // 即将执行filterChain.doFilter()放行，去执行业务逻辑，url的最大并发量加1
             urlInfo = watchingURLInfos.get(position);
             urlInfo.getMaxConcurrency().incrementAndGet();
         } else {
@@ -88,6 +87,7 @@ public abstract class AbstractURLFilter implements Filter {
 
         // 放行
         try {
+            // 即将执行filterChain.doFilter()放行，去执行业务逻辑，url的最大并发量加1
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
             e.printStackTrace();

@@ -26,7 +26,7 @@ public class DefaultWebApplicationManager implements WebApplicationManager {
 
     private final WatchDogServerConfigBean watchDogServerConfigBean;
 
-    private static final int MIN_REFRESH_METRICS_INTERVAL = 2;
+    private static final int MIN_INTERVAL = 1;
 
     @Autowired(required = false)
     private WatchdogDao watchdogDao;
@@ -44,8 +44,14 @@ public class DefaultWebApplicationManager implements WebApplicationManager {
         if (StringUtils.isEmpty(appName) || StringUtils.isEmpty(instanceId)) {
             throw new NullPointerException("application name and instanceId could not be empty or null");
         }
-        if (watchDogClientConfigBean.getRefreshMetricsIntervalInSecs() < MIN_REFRESH_METRICS_INTERVAL) {
-            watchDogClientConfigBean.setRefreshMetricsIntervalInSecs(MIN_REFRESH_METRICS_INTERVAL);
+        if (watchDogClientConfigBean.getRefreshMetricsIntervalInSecs() < MIN_INTERVAL) {
+            watchDogClientConfigBean.setRefreshMetricsIntervalInSecs(MIN_INTERVAL);
+        }
+        if (watchDogClientConfigBean.getRenewalIntervalInSecs() < MIN_INTERVAL) {
+            watchDogClientConfigBean.setRenewalIntervalInSecs(MIN_INTERVAL);
+        }
+        if (watchDogClientConfigBean.getRenewalIntervalInSecs() < watchDogClientConfigBean.getDurationInSecs()) {
+            watchDogClientConfigBean.setRenewalIntervalInSecs(watchDogClientConfigBean.getDurationInSecs());
         }
         if (applications.containsKey(appName)) {
             // 应用已经注册过
@@ -55,7 +61,7 @@ public class DefaultWebApplicationManager implements WebApplicationManager {
             if (instanceInfoMap.containsKey(instanceId)) {
                 // 这个应用实例已经注册,更新配置文件
                 InstanceInfo instanceInfo = instanceInfoMap.get(instanceId);
-                webApplication.updateInstanceConfig(instanceInfo, watchDogClientConfigBean);
+                webApplication.updateInstance(instanceInfo, watchDogClientConfigBean);
                 return Optional.of(instanceInfo);
             } else {
                 // 这个应用实例没有注册，创建实例

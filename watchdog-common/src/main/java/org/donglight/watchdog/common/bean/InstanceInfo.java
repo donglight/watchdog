@@ -61,7 +61,6 @@ public class InstanceInfo implements Serializable {
     private int refreshMetricsIntervalInSecs;
 
 
-
     public enum InstanceStatus {
         /**
          * // 准备接收流量
@@ -90,9 +89,5 @@ public class InstanceInfo implements Serializable {
             }
             return UNKNOWN;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(System.getProperty("java.compiler"));
     }
 }

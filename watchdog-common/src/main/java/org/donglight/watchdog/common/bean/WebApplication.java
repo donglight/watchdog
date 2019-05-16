@@ -77,7 +77,7 @@ public final class WebApplication implements Serializable {
         return instanceInfos.put(instanceId, instanceInfo) == null ? instanceInfo : null;
     }
 
-    public void updateInstanceConfig(InstanceInfo instanceInfo, WatchDogClientConfigBean watchDogClientConfigBean) {
+    public void updateInstance(InstanceInfo instanceInfo, WatchDogClientConfigBean watchDogClientConfigBean) {
         long now = System.currentTimeMillis();
         instanceInfo.setLastUpdateTimestamp(now);
         instanceInfo.setRefreshMetricsIntervalInSecs(watchDogClientConfigBean.getRefreshMetricsIntervalInSecs());

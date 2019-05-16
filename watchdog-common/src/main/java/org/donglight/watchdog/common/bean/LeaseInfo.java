@@ -32,7 +32,7 @@ public class LeaseInfo implements Serializable {
     @Builder.Default
     private int renewalIntervalInSecs = DEFAULT_LEASE_RENEWAL_INTERVAL;
     /**
-     *
+     * 应用过期时间
      */
     @Builder.Default
     private int durationInSecs = DEFAULT_LEASE_DURATION;
