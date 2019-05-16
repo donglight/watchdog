@@ -48,7 +48,6 @@ public abstract class AbstractCommunicationProxy implements CommunicationProxy {
 
     protected int retryTime;
 
-    protected String serverInfo;
     /**
      * 服务端返回的instanceInfo
      */
@@ -143,16 +142,11 @@ public abstract class AbstractCommunicationProxy implements CommunicationProxy {
                 AbstractCommunicationProxy.this.pushMetrics(metricsCollector.refreshMetrics());
             }catch (Exception e){
                 e.printStackTrace();
-                AbstractCommunicationProxy.this.pushMetrics(metricsCollector.refreshMetrics());
             }
         }
     }
 
     public WatchDogClientConfigBean getWatchDogClientConfigBean() {
         return watchDogClientConfigBean;
-    }
-
-    public void setWatchDogClientConfigBean(WatchDogClientConfigBean watchDogClientConfigBean) {
-        this.watchDogClientConfigBean = watchDogClientConfigBean;
     }
 }

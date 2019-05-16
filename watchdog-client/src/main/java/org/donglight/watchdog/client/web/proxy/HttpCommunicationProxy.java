@@ -3,18 +3,12 @@ package org.donglight.watchdog.client.web.proxy;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.concurrent.BasicThreadFactory;
-import org.donglight.watchdog.client.web.MetricsCollector;
 import org.donglight.watchdog.common.bean.*;
 import org.donglight.watchdog.common.util.HttpClientUtil;
 import org.donglight.watchdog.common.util.Response;
 import org.donglight.watchdog.common.util.ResponseEnum;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 访问监控服务端的http代理
