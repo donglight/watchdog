@@ -20,10 +20,9 @@ import java.util.List;
 @Slf4j
 public class HttpCommunicationProxy extends AbstractCommunicationProxy {
     /**
-     * 默认监控服务端的rest url是http://127.0.0.1:6666/api
+     * 默认监控服务端的rest url是http://localhost:10000/api
      */
-    private static final String DEFAULT_SERVER_URL = "http://127.0.0.1:10000/api";
-    private String serverUrl;
+    private static final String DEFAULT_HTTP_SERVER_URL = "http://localhost:10000/api";
     /**
      * 序列化工具
      */
@@ -34,19 +33,25 @@ public class HttpCommunicationProxy extends AbstractCommunicationProxy {
 
     public HttpCommunicationProxy() {
         super();
+        serverUrl = DEFAULT_HTTP_SERVER_URL;
     }
 
     public HttpCommunicationProxy(String appName) {
-        super(appName, DEFAULT_SERVER_URL);
+        super(appName, DEFAULT_HTTP_SERVER_URL);
     }
 
     public HttpCommunicationProxy(String appName, String serverUrl) {
-        super(appName,serverUrl);
+        super(appName, serverUrl);
     }
 
     @Override
     public boolean remoteRegister(WatchDogClientConfigBean clientConfigBean) {
         this.watchDogClientConfigBean = clientConfigBean;
+        if ("".equals(watchDogClientConfigBean.getAppName().trim())) {
+            watchDogClientConfigBean.setAppName(appName);
+        } else {
+            appName = watchDogClientConfigBean.getAppName();
+        }
         try {
             String registerPath = "/register";
             String json = HttpClientUtil.doPostJson(serverUrl + registerPath, objectMapper.writeValueAsString(watchDogClientConfigBean));

@@ -1,4 +1,4 @@
-## watchdog项目结构说明
+## watchdog项目说明
 
 ### 项目介绍
 ```
@@ -7,6 +7,7 @@
 技术点：
     项目整体核心技术为springboot+vue，都是开源框架。vue项目不在本工程下，watchdog-frontend-vue是前端工程
 	核心框架：springboot 2.1.4.RELEASE Vue3.0
+	数据库持久化方面还没有完善，大多数用不了
 ```
 ### 项目目录结构说明
 
@@ -20,3 +21,7 @@
 │  ├─watchdog-common-------------------------公共依赖(JavaBean util)
 │  │
 │  ├─watchdog-server--------------------------监控服务端，提供RMI服务和API
+```
+
+### 客户端配置项
+可以查看watchdog-client-test测试客户端应用下的配置文件

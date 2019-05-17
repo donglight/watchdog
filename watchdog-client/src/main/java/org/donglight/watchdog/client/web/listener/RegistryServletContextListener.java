@@ -30,11 +30,7 @@ import java.util.Map;
 @Slf4j
 public class RegistryServletContextListener implements ServletContextListener {
 
-    private static final String WATCH_DOG_PROXY_TYPE = "watch.dog.proxy.type";
     public static final String WD_COMMUNICATION_PROXY = "wdCommunicationProxy";
-    private static final String WATCH_DOG_RMI_PROXY = "rmi";
-    private static final String WATCH_DOG_HTTP_PROXY = "http";
-    private static final String SERVER_URL = "serverUrl";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -44,28 +40,12 @@ public class RegistryServletContextListener implements ServletContextListener {
         if (watchDogClientConfigBean.isEnabled()) {
             log.info("watch dog client is starting");
             ServletContext servletContext = sce.getServletContext();
-            //从web.xml中获取web应用参数
-            String proxyType = servletContext.getInitParameter(WATCH_DOG_PROXY_TYPE);
-            String serverUrl = servletContext.getInitParameter(SERVER_URL);
-
-            CommunicationProxy communicationProxy;
-            if (StringUtils.isEmpty(proxyType) || WATCH_DOG_RMI_PROXY.equals(proxyType)) {
-                if (StringUtils.isNotEmpty(serverUrl)) {
-                    communicationProxy = new RmiCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrl);
-                } else {
-                    communicationProxy = new RmiCommunicationProxy();
-                }
-            } else if (WATCH_DOG_HTTP_PROXY.equals(proxyType)) {
-                if (StringUtils.isNotEmpty(serverUrl)) {
-                    communicationProxy = new HttpCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrl);
-                } else {
-                    communicationProxy = new HttpCommunicationProxy();
-                }
-            } else {
-                throw new IllegalArgumentException("Incorrect proxy type configuration");
-            }
-            servletContext.setAttribute(WD_COMMUNICATION_PROXY, communicationProxy);
             watchDogClientConfigBean.setServerInfo(servletContext.getServerInfo());
+
+            CommunicationProxy communicationProxy = newCommunicationProxy(servletContext, watchDogClientConfigBean);
+
+            servletContext.setAttribute(WD_COMMUNICATION_PROXY, communicationProxy);
+
             // 注册到远程监控服务
             if (communicationProxy.remoteRegister(watchDogClientConfigBean)) {
                 // 获取所有的mapping
@@ -75,6 +55,48 @@ public class RegistryServletContextListener implements ServletContextListener {
         } else {
             log.warn("watch dog client is disabled");
         }
+    }
+
+    private CommunicationProxy newCommunicationProxy(ServletContext servletContext, WatchDogClientConfigBean watchDogClientConfigBean) {
+        //从web.xml中获取web应用参数
+        String proxyTypeFromInitParam = servletContext.getInitParameter(WatchDogClientConfigBean.PROXY_TYPE_KET);
+        String serverUrlFromInitParam = servletContext.getInitParameter(WatchDogClientConfigBean.SERVER_URL_KET);
+
+        //从配置文件中获取的参数
+        String proxyTypeProperties = watchDogClientConfigBean.getProxyType();
+        String serverUrlFromProperties = watchDogClientConfigBean.getServerUrl();
+
+        CommunicationProxy communicationProxy;
+        if (WatchDogClientConfigBean.WATCH_DOG_RMI_PROXY.equals(proxyTypeFromInitParam)) {
+            if (StringUtils.isNotEmpty(serverUrlFromInitParam)) {
+                communicationProxy = new RmiCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrlFromInitParam);
+            } else {
+                communicationProxy = new RmiCommunicationProxy(watchDogClientConfigBean.getAppName());
+            }
+        } else if (WatchDogClientConfigBean.WATCH_DOG_HTTP_PROXY.equals(proxyTypeFromInitParam)) {
+            if (StringUtils.isNotEmpty(serverUrlFromInitParam)) {
+                communicationProxy = new HttpCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrlFromInitParam);
+            } else {
+                communicationProxy = new HttpCommunicationProxy(watchDogClientConfigBean.getAppName());
+            }
+        } else {
+            if (WatchDogClientConfigBean.WATCH_DOG_RMI_PROXY.equals(proxyTypeProperties)) {
+                if (StringUtils.isNotEmpty(serverUrlFromProperties)) {
+                    communicationProxy = new RmiCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrlFromProperties);
+                } else {
+                    communicationProxy = new RmiCommunicationProxy(watchDogClientConfigBean.getAppName());
+                }
+            } else if (WatchDogClientConfigBean.WATCH_DOG_HTTP_PROXY.equals(serverUrlFromProperties)) {
+                if (StringUtils.isNotEmpty(serverUrlFromProperties)) {
+                    communicationProxy = new HttpCommunicationProxy(watchDogClientConfigBean.getAppName(), serverUrlFromProperties);
+                } else {
+                    communicationProxy = new HttpCommunicationProxy(watchDogClientConfigBean.getAppName());
+                }
+            } else {
+                throw new IllegalArgumentException("Incorrect proxy type configuration");
+            }
+        }
+        return communicationProxy;
     }
 
     private List<URLInfo> getUrlInfos(ServletContext servletContext) {

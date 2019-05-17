@@ -50,7 +50,7 @@ public class DefaultWebApplicationManager implements WebApplicationManager {
         if (watchDogClientConfigBean.getRenewalIntervalInSecs() < MIN_INTERVAL) {
             watchDogClientConfigBean.setRenewalIntervalInSecs(MIN_INTERVAL);
         }
-        if (watchDogClientConfigBean.getRenewalIntervalInSecs() < watchDogClientConfigBean.getDurationInSecs()) {
+        if (watchDogClientConfigBean.getRenewalIntervalInSecs() > watchDogClientConfigBean.getDurationInSecs()) {
             watchDogClientConfigBean.setRenewalIntervalInSecs(watchDogClientConfigBean.getDurationInSecs());
         }
         if (applications.containsKey(appName)) {
