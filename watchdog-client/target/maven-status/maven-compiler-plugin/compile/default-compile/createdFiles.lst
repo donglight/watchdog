@@ -1,5 +1,0 @@
-org\donglight\watchdog\client\web\listener\RegistryServletContextListener.class
-org\donglight\watchdog\client\web\filter\URLFilterForServlet.class
-org\donglight\watchdog\client\web\MetricsCollector.class
-org\donglight\watchdog\client\web\listener\RegistryApplicationListener.class
-org\donglight\watchdog\client\web\filter\URLFilterForSpringMvc.class
