@@ -1,8 +1,6 @@
 package org.donglight.watchdog.common.util;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 /**
  * 各种id生成策略
@@ -55,11 +53,4 @@ public class IDUtils {
         return str;
     }
 
-    public static void main(String[] args) {
-        Set<Long> longSet = new HashSet<>();
-        for (int i = 0; i < 1000; i++) {
-            longSet.add(genUrlId());
-        }
-        System.out.println(longSet.size());
-    }
 }
