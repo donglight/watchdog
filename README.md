@@ -23,5 +23,5 @@
 │  ├─watchdog-server--------------------------监控服务端，提供RMI服务和API
 ```
 
-### 客户端配置项
-可以查看watchdog-client-test测试客户端应用下的配置文件
+### 配置项
+使用watchdog-client客户端的配置项可以查看watchdog-client-test测试客户端应用下的配置文件
