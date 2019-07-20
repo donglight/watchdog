@@ -25,3 +25,11 @@
 
 ### 配置项
 使用watchdog-client客户端的配置项可以查看watchdog-client-test测试客户端应用下的配置文件
+
+### 效果图
+- 堆内存监控
+![堆内存](https://github.com/donglight/watchdog/wiki/1.png)
+- 线程监控
+![线程监控](https://github.com/donglight/watchdog/wiki/2.png)
+- URL监控
+![URL监控](https://github.com/donglight/watchdog/wiki/3.png)
