@@ -1,0 +1,13 @@
+.el-scrollbar__wrap {
+    overflow-x: hidden;
+}
+.el-collapse-item__header {
+    font-size: 18px;
+    color: #409eff;
+    padding-left: 10px;
+}
+
+.el-collapse-item__wrap {
+    margin-bottom: 20px;
+    padding: 0;
+}

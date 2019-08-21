@@ -1,0 +1,2 @@
+watchdog-spring-boot-starter
+watchdog客户端如果是springboot应用，则可以引入watchdog-spring-boot-starter，帮助自动配置watchdog客户端
