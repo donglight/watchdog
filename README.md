@@ -20,7 +20,11 @@
 │  │
 │  ├─watchdog-common-------------------------公共依赖(JavaBean util)
 │  │
+|  ├─watchdog-frontend-vue-------------------------前端vue项目
+│  │
 │  ├─watchdog-server--------------------------监控服务端，提供RMI服务和API
+│  │
+│  ├─watchdog-springboot-stater--------------------------springboot starter
 ```
 
 ### 配置项
